@@ -111,11 +111,11 @@ impl Component for Home {
       .map(|product: &Product| {
         let product_id = product.id;
         html! {
-          <div>
-            <img src={&product.image}/>
-            <div>{&product.name}</div>
-            <div>{"$"}{&product.price}</div>
-            <button onclick=self.link.callback(move |_| Msg::AddToCart(product_id))>{"Add To Cart"}</button>
+          <div class="product_card_container">
+            <img class="product_card_image" src={&product.image}/>
+            <div class="product_card_name">{&product.name}</div>
+            <div class="product_card_price">{"$"}{&product.price}</div>
+            <button class="product_atc_button" onclick=self.link.callback(move |_| Msg::AddToCart(product_id))>{"Add To Cart"}</button>
           </div>
         }
       })
@@ -138,10 +138,13 @@ impl Component for Home {
       }
     } else {
       html! {
-        <div>
-          <span>{format!("Cart Value: {:.2}", cart_value)}</span>
-          <span>{products}</span>
-        </div>
+        <>
+          <div class="navbar">
+             <div class="navbar_title">{"Demo cart"}</div>
+             <div class="navbar_cart_value">{format!("${:.2}", cart_value)}</div>
+          </div>
+          <div class="product_card_list">{products}</div>
+        </>
       }
     }
   }
